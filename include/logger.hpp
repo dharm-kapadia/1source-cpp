@@ -1,3 +1,16 @@
+#ifndef __LOGGER_HPP__
+#define __LOGGER_HPP__
+
+/**
+ * @file logger.cpp
+ *
+ * @brief Simple Logger class to create local logs
+ *
+ * @author EquiLend
+ * Contact: Dharm Kapadia <dharm.kapadia@equilend.com>
+ *
+ */
+
 #include <chrono>
 #include <format>
 #include <fstream>
@@ -79,3 +92,5 @@ public:
         this->log(LOG_FATAL, "[FATAL]\t" + msg, console);
     }
 };
+
+#endif
