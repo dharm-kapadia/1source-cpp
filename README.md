@@ -99,7 +99,6 @@ The 1Source REST API can return the following entities:
 * agreements
 * contracts
 
-
 #### Events
 To retrieve all events which the user is authorized to view, the following command will do so:
 
@@ -130,6 +129,59 @@ The output of the command to retrieve events will be a JSON response from the 1S
     "resourceUri": "/v1/ledger/agreements/ed0b656e-6931-4b85-b5be-1bbe6b71b099"
   }
 ]
+```
+
+The REST API can be queried for a particular event with an event_id
+```
+1source-cpp> ./1source -t configuration.toml -e 10012349
+```
+
+The expected response for that call would be similar to:
+```
+1Source event
+=============
+{
+  "eventDateTime": "2023-11-02T11:00:11.448Z",
+  "eventId": 10012349,
+  "eventType": "TRADE",
+  "resourceUri": "/v1/ledger/agreements/d7f0cf8d-2c8f-4741-bf4c-3e793b67a0ee"
+}
+```
+
+#### Parties
+Similar to the Events call, to retrieve all parties which the user is authorized to view, the following command will do so:
+
+```
+1source-cpp> ./1source -t configuration.toml -o parties
+```
+
+The REST API can be queried for a particular party with a party_id
+```
+1source-cpp> ./1source -t configuration.toml -p XXXX-US
+```
+
+#### Agreements
+Similar to the Events call, to retrieve all agreements which the user is authorized to view, the following command will do so:
+
+```
+1source-cpp> ./1source -t configuration.toml -o agreements
+```
+
+The REST API can be queried for a particular agreement with an agreement_id
+```
+1source-cpp> ./1source -t configuration.toml -a 56e7a7fb-309b-4f49-b92f-b789b37e3f07
+```
+
+#### Contracts
+Similar to the Events call, to retrieve all contracts which the user is authorized to view, the following command will do so:
+
+```
+1source-cpp> ./1source -t configuration.toml -o contracts
+```
+
+The REST API can be queried for a particular contract with a contract_id
+```
+1source-cpp> ./1source -t configuration.toml -c c2098d72-89c0-49f7-829a-e9
 ```
 
 ## Authors
