@@ -184,6 +184,24 @@ The REST API can be queried for a particular contract with a contract_id
 1source-cpp> ./1source -t configuration.toml -c c2098d72-89c0-49f7-829a-e9
 ```
 
+### Configuration TOML Specification
+The 1source command-line application reads data from a configuration file in TOML format. The file contains information required for the application to connect to the 1Source REST API, the individual endpoints, and the authentication details. The TOML file reflects that by have 3 required sections
+* general
+* endpoints
+* authentication
+
+Of the 3 sections, only a few of the attributes in the authentication section should be changed by the user. The rest should be left as-is.
+
+#### General
+
+This section contains one key/value pair, that of the 1Source REST API "auth_url." This endpoint is for use rlogin authentication and retrieval of the auth token on successful login. That auth token is required on subsequent calls to the 1Source REST API.
+
+#### Endpoints
+This section contains key/value pairs related to the 1Source REST API endpoints for events, parties, agreements, and contracts. These values should not be changed by the user unless 
+
+#### Authentication
+This section contains key/value pairs related to the 1Source REST API login authentication (username, password, etc.)
+
 ## Authors
 
 Contributors names and contact info
