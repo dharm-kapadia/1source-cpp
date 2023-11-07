@@ -11,7 +11,7 @@
  *
  */
 
-#include <chrono>
+#include <fmt/chrono.h>
 #include <format>
 #include <fstream>
 #include <iostream>
@@ -64,7 +64,7 @@ public:
     std::string getFormattedTime()
     {
         const auto now = std::chrono::system_clock::now();
-        return std::format("{:%d-%m-%Y %H:%M:%OS}", now);
+        return fmt::format("{:%d-%m-%Y %H:%M:%OS}", now);
     }
 
     void DEBUG(std::string msg, bool console = false)
