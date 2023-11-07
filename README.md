@@ -196,14 +196,16 @@ The 1source command-line application reads data from a configuration file in TOM
 * endpoints
 * authentication
 
-Of the 3 sections, only a few of the attributes in the authentication section should be changed by the user. The rest should be left as-is.
+Of the 3 sections, only a few of the attributes in the authentication section should be changed by the user. The rest should be left as-is unless otherwise instructed.
 
 #### General
 
-This section contains one key/value pair, that of the 1Source REST API "auth_url." This endpoint is for use rlogin authentication and retrieval of the auth token on successful login. That auth token is required on subsequent calls to the 1Source REST API.
+This section contains one key/value pair, that of the 1Source REST API "auth_url." This endpoint is for user login authentication and retrieval of the auth token on successful login. That auth token is required on subsequent calls to the 1Source REST API.
+
+This values should not be changed by the user unless otherwise instructed.
 
 #### Endpoints
-This section contains key/value pairs related to the 1Source REST API endpoints for events, parties, agreements, and contracts. These values should not be changed by the user unless 
+This section contains key/value pairs related to the 1Source REST API endpoints for events, parties, agreements, and contracts. These values should not be changed by the user unless otherwise instructed.
 
 #### Authentication
 This section contains key/value pairs related to the 1Source REST API login authentication (username, password, etc.)

@@ -9,7 +9,6 @@ contracts = 'https://stageapi.equilend.com/v1/ledger/contracts'
 
 [authentication]
 auth_type = 'BEARER'
-
 grant_type = 'password'
 client_id = 'canton-participant1-client'
 username = 'TestBorrower1User'
