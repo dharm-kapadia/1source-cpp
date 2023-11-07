@@ -14,9 +14,9 @@ https://github.com/Equilend/1source-api
 
 ### Dependencies
 
-* A C++ compiler: gcc/clang (c++17) is recommended but other c++ compilers might work, such as Visual C++.
+* A C++ compiler: gcc/clang (c++20 or greater) is recommended but other c++ compilers might work, such as Visual C++.
 * CMake
-* All other feature dependencies are included in the projects as self-contained .hpp files (JSON, logger, TOML, etc.)
+* All other feature dependencies are included in the projects as self-contained .hpp files (cpr, fmt, JSON, logger, TOML, etc.)
 * OpenSSL libraries => openssl, openssl-libs, openssl-devel
 
 In Fedora, the OpenSSL libraries are installed with the following command:
@@ -62,7 +62,7 @@ If the build is successful, it will output the following few lines in the termin
 [100%] Linking C shared library libz.so
 [100%] Built target zlib
 ```
-After a successful build, an executable file called '1source' will be created in the 1source-cpp root directory. There will also be residual files created as part of the cmake and build process.
+After a successful build, an executable file called '1source' will be created in the 1source-cpp root directory. There will also be residual files and directiories created as part of the cmake and build process.
 
 ### Executing program
 
