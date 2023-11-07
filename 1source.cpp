@@ -1,8 +1,4 @@
-﻿#include <iostream>
-#include <string>
-
-#include "1source.hpp"
-#include <cpr/cpr.h>
+﻿#include "1source.hpp"
 
 #include "include/argparse.hpp"
 #include "include/logger.hpp"
@@ -143,9 +139,13 @@ int main(int argc, char **argv)
 
     if (config.readConfiguration() != 0)
     {
-        logger.FATAL("Could not parse configuration file:" + filename);
+        logger.FATAL("Could not parse configuration file: " + filename);
         cout << "Could not parse configuration file:" + filename << endl;
         return 3;
+    }
+    else
+    {
+        logger.INFO("Success reading and parsing configuration file: " + filename);
     }
 
     // Get the Auth token
