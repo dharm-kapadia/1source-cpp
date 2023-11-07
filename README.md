@@ -17,6 +17,12 @@ https://github.com/Equilend/1source-api
 * A C++ compiler: gcc/clang (c++17) is recommended but other c++ compilers might work, such as Visual C++.
 * CMake
 * All other feature dependencies are included in the projects as self-contained .hpp files (JSON, logger, TOML, etc.)
+* OpenSSL libraries => openssl, openssl-libs, openssl-devel
+
+In Fedora, the OpenSSL libraries are installed with the following command:
+```
+> sudo dnf install openssl openssl-libs openssl-devel
+```
 
 ### Installing
 
