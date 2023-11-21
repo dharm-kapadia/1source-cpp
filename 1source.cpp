@@ -11,8 +11,6 @@ using namespace cpr;
 using namespace string_view_literals;
 using namespace utilities;
 
-using json = nlohmann::json;
-
 // Create a logger for the application
 Logger logger = Logger("1source.log");
 
@@ -59,31 +57,6 @@ string getAuthToken(Configuration config)
     }
 
     return auth_token;
-}
-
-/**
- * Outputs the response from the 1Source to the console
- *
- * @param resp JSON response object to interate through and output
- * @param item Reponse object type
- *
- * @return None
- */
-void outputResponse(const json& resp, const string& item)
-{
-    // Create the output header
-    const string header = "1Source " + item;
-
-    // Output the response to the console
-    cout << " " << endl;
-
-    // Output header and underline
-    cout << header << endl;
-    cout << string(header.length(), '=') << endl;
-
-    // Output JSON response
-    cout << resp.dump(2) << endl;
-    cout << " " << endl;
 }
 
 int main(int argc, char **argv)

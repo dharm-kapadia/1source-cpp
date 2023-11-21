@@ -1,5 +1,5 @@
-#ifndef __UTILITIES_H__
-#define __UTILITIES_H__
+#ifndef UTILITIES_H_
+#define UTILITIES_H_
 
 /**
  * @file utilities.cpp
@@ -19,8 +19,10 @@
 
 namespace utilities
 {
+    using json = nlohmann::json;
+
     // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-    const std::string CurrentDateTime()
+    std::string CurrentDateTime()
     {
         const auto now = std::chrono::system_clock::now();
         return std::format("{:%Y-%m-%d.%X}", now);
@@ -42,6 +44,30 @@ namespace utilities
         program.add_argument("-cd").help("1Source API Endpoint to DECLINE a proposed contract by contract_id");
     }
 
+    /**
+ * Outputs the response from the 1Source to the console
+ *
+ * @param resp JSON response object to iterate through and output
+ * @param item Response object type
+ *
+ * @return None
+ */
+    void outputResponse(const json& resp, const string& item)
+    {
+        // Create the output header
+        const string header = "1Source " + item;
+
+        // Output the response to the console
+        cout << " " << endl;
+
+        // Output header and underline
+        cout << header << endl;
+        cout << string(header.length(), '=') << endl;
+
+        // Output JSON response
+        cout << resp.dump(2) << endl;
+        cout << " " << endl;
+    }
 }
 
 #endif
