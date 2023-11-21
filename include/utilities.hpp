@@ -19,6 +19,8 @@
 
 namespace utilities
 {
+    using namespace cpr;
+
     using json = nlohmann::json;
 
     // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
@@ -26,6 +28,51 @@ namespace utilities
     {
         const auto now = std::chrono::system_clock::now();
         return std::format("{:%Y-%m-%d.%X}", now);
+    }
+
+    /**
+ * Gets the Auth token from 1Source
+ *
+ * @param config Configuration object which contains the details from the TOML file
+ *
+ * @return auth_token or ""
+ */
+    string getAuthToken(Configuration config, Logger logger)
+    {
+        // Get the auth token
+        logger.INFO("Getting AUTH token");
+
+        Response r = Post(Url{config.getAuthURL()},
+                          Bearer{config.getAuthType()},
+                          Payload{
+                                  {"grant_type", config.getGrantType()},
+                                  {"client_id", config.getClientId()},
+                                  {"username", config.getUsername()},
+                                  {"password", config.getPassword()},
+                                  {"client_secret", config.getClientSecret()}});
+
+        string auth_token;
+        json resp;
+
+        // Get the HTTP return status
+        if (r.status_code == 200)
+        {
+            logger.INFO("Successfully retrieved AUTH token from 1Source API");
+
+            resp = json::parse(r.text);
+
+            // Extract auth_token
+            logger.INFO("Extract AUTH token from response");
+            auth_token = resp["access_token"];
+        }
+        else
+        {
+            logger.ERR("Error retrieving AUTH token from 1Source API");
+            cout << "Error retrieving AUTH token from 1Source API" << endl;
+            exit(10);
+        }
+
+        return auth_token;
     }
 
     // Set the command line parameter help text

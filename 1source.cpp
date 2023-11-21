@@ -14,51 +14,6 @@ using namespace utilities;
 // Create a logger for the application
 Logger logger = Logger("1source.log");
 
-/**
- * Gets the Auth token from 1Source
- *
- * @param config Configuration object which contains the details from the TOML file
- *
- * @return auth_token or ""
- */
-string getAuthToken(Configuration config)
-{
-    // Get the auth token
-    logger.INFO("Getting AUTH token");
-
-    Response r = Post(Url{config.getAuthURL()},
-                      Bearer{config.getAuthType()},
-                      Payload{
-                          {"grant_type", config.getGrantType()},
-                          {"client_id", config.getClientId()},
-                          {"username", config.getUsername()},
-                          {"password", config.getPassword()},
-                          {"client_secret", config.getClientSecret()}});
-
-    string auth_token;
-    json resp;
-
-    // Get the HTTP return status
-    if (r.status_code == 200)
-    {
-        logger.INFO("Successfully retrieved AUTH token from 1Source API");
-
-        resp = json::parse(r.text);
-
-        // Extract auth_token
-        logger.INFO("Extract AUTH token from response");
-        auth_token = resp["access_token"];
-    }
-    else
-    {
-        logger.ERR("Error retrieving AUTH token from 1Source API");
-        cout << "Error retrieving AUTH token from 1Source API" << endl;
-        exit(10);
-    }
-
-    return auth_token;
-}
-
 int main(int argc, char **argv)
 {
     logger.INFO("Starting application...");
@@ -83,8 +38,8 @@ int main(int argc, char **argv)
     }
     catch (const runtime_error &err)
     {
-        cerr << err.what() << endl;
-        cerr << program;
+        cout << err.what() << endl;
+        cout << program;
         return 1;
     }
 
@@ -98,7 +53,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        cerr << "No config TOML file specified" << endl;
+        cout << "No config TOML file specified" << endl;
         return 2;
     }
 
@@ -117,7 +72,7 @@ int main(int argc, char **argv)
     }
 
     // Get the Auth token
-    const string auth_token = getAuthToken(config);
+    const string auth_token = getAuthToken(config, logger);
 
     // If -a is on the command line, get the trade agreement by agreement_id
     if (auto cfg = program.present("-a"))
@@ -139,7 +94,7 @@ int main(int argc, char **argv)
         {
             // Error returned
             logger.INFO("agreement_id error returned: " + r.error.message);
-            cerr << r.error.message << endl;
+            cout << r.error.message << endl;
         }
 
         return 0;
@@ -164,8 +119,8 @@ int main(int argc, char **argv)
         else
         {
             // Error returned
-            logger.INFO("event_id error returned: " + r.error.message);
-            cerr << r.error.message << endl;
+            logger.INFO("event_id error returned: " + r.text);
+            cout << r.text << endl;
         }
 
         return 0;
@@ -190,8 +145,8 @@ int main(int argc, char **argv)
         else
         {
             // Error returned
-            logger.INFO("contract_id error returned: " + r.error.message);
-            cerr << r.error.message << endl;
+            logger.INFO("contract_id error returned: " + r.text);
+            cout << r.text << endl;
         }
 
         return 0;
@@ -216,10 +171,34 @@ int main(int argc, char **argv)
         else
         {
             // Error returned
-            logger.INFO("party_id error returned: " + r.error.message);
-            cerr << r.error.message << endl;
+            logger.INFO("party_id error returned: " + r.text);
+            cout << r.text << endl;
         }
 
+        return 0;
+    }
+
+    // if -d is on the command line, get the delegation by delegation_id
+    if (auto cfg = program.present("-d"))
+    {
+        // Get the delegation from 1Source via the delegation_id
+        string delegation_id = *cfg;
+
+        string url = config.getDelegationsEndPoint() + "//" + delegation_id;
+        Response r = Get(Url{url}, Bearer{auth_token});
+
+        if (r.status_code == 200) {
+            logger.INFO(url + " data received");
+            json resp = json::parse(r.text);
+
+            outputResponse(resp, "delegation");
+        }
+        else {
+            // Error returned
+            logger.INFO("delegation_id error returned: " + r.text);
+            cout << r.text << endl;
+        }
+        
         return 0;
     }
 
@@ -258,7 +237,7 @@ int main(int argc, char **argv)
         {
             // Unknown endpoint specified
             logger.ERR("Unknown 1Source API endpoint requested: " + endpoint);
-            cerr << "Unknown 1Source API endpoint requested: " + endpoint << endl;
+            cout << "Unknown 1Source API endpoint requested: " + endpoint << endl;
         }
 
         if (resp.status_code == 200)
@@ -269,8 +248,8 @@ int main(int argc, char **argv)
         else
         {
             // Error returned
-            logger.INFO(endpoint + " error returned: " + resp.error.message);
-            cerr << resp.error.message << endl;
+            logger.INFO(endpoint + " error returned: " + resp.text);
+            cout << resp.text << endl;
         }
     }
 

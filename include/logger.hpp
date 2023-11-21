@@ -15,6 +15,7 @@
 #include <format>
 #include <fstream>
 #include <iostream>
+#include <utility>
 
 enum LogLevel
 {
@@ -36,58 +37,61 @@ public:
     // Default constructor
     Logger(std::string filename, LogLevel logLevel = LOG_INFO, bool console_output = false)
     {
-        this->filename = filename;
+        this->filename = std::move(filename);
         this->logLevel = logLevel;
         this->console_output = console_output;
     }
 
     // Default destructor
-    ~Logger() {}
+    ~Logger() = default;
 
-    void log(LogLevel logLevel, std::string msg, bool console = false)
+    static std::string getFormattedTime()
+    {
+        const auto now = std::chrono::system_clock::now();
+        return fmt::format("{:%d-%m-%Y %H:%M:%OS}", now);
+    }
+
+    void log(LogLevel level, const std::string& msg, bool console = false)
     {
         std::string time_str = getFormattedTime();
-        std::ofstream file(this->filename, std::ios_base::app);
 
-        // Log msg to log file
-        file << time_str << "\t" << msg << std::endl;
+        if (level >= this->logLevel) {
+            std::ofstream file(this->filename, std::ios_base::app);
+
+            // Log msg to log file
+            file << time_str << "\t" << msg << std::endl;
+
+            file.close();
+        }
 
         // Log to console if flag is true
         if (this->console_output || console)
         {
             std::cout << time_str << "\t" << msg << std::endl;
         }
-
-        file.close();
     }
 
-    std::string getFormattedTime()
-    {
-        const auto now = std::chrono::system_clock::now();
-        return fmt::format("{:%d-%m-%Y %H:%M:%OS}", now);
-    }
-
-    void DEBUG(std::string msg, bool console = false)
+    void DEBUG(const std::string& msg, bool console = false)
     {
         this->log(LOG_FATAL, "[DEBUG]\t" + msg, console);
     }
 
-    void INFO(std::string msg, bool console = false)
+    void INFO(const std::string& msg, bool console = false)
     {
         this->log(LOG_FATAL, "[INFO]\t" + msg, console);
     }
 
-    void WARN(std::string msg, bool console = false)
+    void WARN(const std::string& msg, bool console = false)
     {
         this->log(LOG_FATAL, "[WARN]\t" + msg, console);
     }
 
-    void ERR(std::string msg, bool console = false)
+    void ERR(const std::string& msg, bool console = false)
     {
         this->log(LOG_FATAL, "[ERROR]\t" + msg, console);
     }
 
-    void FATAL(std::string msg, bool console = false)
+    void FATAL(const std::string& msg, bool console = false)
     {
         this->log(LOG_FATAL, "[FATAL]\t" + msg, console);
     }
