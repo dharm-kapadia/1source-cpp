@@ -3,7 +3,6 @@
 #include "include/argparse.hpp"
 #include "include/logger.hpp"
 #include "include/json.hpp"
-#include "include/toml.hpp"
 #include "include/configuration.hpp"
 #include "include/utilities.hpp"
 
@@ -38,7 +37,7 @@ string getAuthToken(Configuration config)
                           {"password", config.getPassword()},
                           {"client_secret", config.getClientSecret()}});
 
-    string auth_token = "";
+    string auth_token;
     json resp;
 
     // Get the HTTP return status
@@ -70,7 +69,7 @@ string getAuthToken(Configuration config)
  *
  * @return None
  */
-void outputResponse(const json resp, const string item)
+void outputResponse(const json& resp, const string& item)
 {
     // Create the output header
     const string header = "1Source " + item;
@@ -99,14 +98,14 @@ int main(int argc, char **argv)
     {
         // Parse command line arguments
         program.parse_args(argc, argv);
-        string args = "";
+        string args;
 
         for (int i = 1; i < argc; i++)
         {
-            args = args + argv[i] + " ";
+            args = args.append(argv[i]).append(" ");
         }
 
-        // Log command line arguments
+        // Log command line arguments`
         logger.DEBUG("User args entered: " + args);
     }
     catch (const runtime_error &err)
@@ -116,7 +115,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    string filename = "";
+    string filename;
 
     // Get TOML configuration file name
     if (auto cfg = program.present("-t"))
@@ -257,22 +256,22 @@ int main(int argc, char **argv)
         string endpoint = *cfg;
         Response r;
 
-        if (endpoint.compare("agreements") == 0)
+        if (endpoint == "agreements")
         {
             // Get Trade Agreements
             r = Get(Url{config.getAgreementsEndpoint()}, Bearer{auth_token});
         }
-        else if (endpoint.compare("contracts") == 0)
+        else if (endpoint == "contracts")
         {
             // Get Contracts
             r = Get(Url{config.getContractsEndpoint()}, Bearer{auth_token});
         }
-        else if (endpoint.compare("events") == 0)
+        else if (endpoint == "events")
         {
             // Get Events
             r = Get(Url{config.getEventsEndpoint()}, Bearer{auth_token});
         }
-        else if (endpoint.compare("parties") == 0)
+        else if (endpoint == "parties")
         {
             // Get Parties
 
