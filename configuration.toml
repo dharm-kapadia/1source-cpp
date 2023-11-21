@@ -1,11 +1,17 @@
 [general]
 auth_url = 'https://stageauth.equilend.com/auth/realms/1Source/protocol/openid-connect/token'
+realm_name = '1Source'
 
 [endpoints]
+base = 'https://stageapi.equilend.com/v1/ledger/'
 events = 'https://stageapi.equilend.com/v1/ledger/events'
 parties = 'https://stageapi.equilend.com/v1/ledger/parties'
 agreements = 'https://stageapi.equilend.com/v1/ledger/agreements'
 contracts = 'https://stageapi.equilend.com/v1/ledger/contracts'
+rerates = 'https://stageapi.equilend.com/v1/ledger/rerates'
+returns = 'https://stageapi.equilend.com/v1/ledger/returns'
+recalls = 'https://stageapi.equilend.com/v1/ledger/recalls'
+buyins = 'https://stageapi.equilend.com/v1/ledger/buyins'
 
 [authentication]
 auth_type = 'BEARER'

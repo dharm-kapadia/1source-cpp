@@ -4,12 +4,13 @@
 #include "include/logger.hpp"
 #include "include/json.hpp"
 #include "include/toml.hpp"
-#include "include/argparse.hpp"
 #include "include/configuration.hpp"
+#include "include/utilities.hpp"
 
 using namespace std;
 using namespace cpr;
 using namespace string_view_literals;
+using namespace utilities;
 
 using json = nlohmann::json;
 
@@ -92,12 +93,7 @@ int main(int argc, char **argv)
 
     argparse::ArgumentParser program("1Source", "1.0.2");
 
-    program.add_argument("-t").required().help("1Source configuration TOML file");
-    program.add_argument("-o").help("1Source API Endpoint to query [agreements, contracts, events, parties ]");
-    program.add_argument("-a").help("1Source API Endpoint to query trade agreements by agreement_id");
-    program.add_argument("-e").help("1Source API Endpoint to query events by event_id");
-    program.add_argument("-c").help("1Source API Endpoint to query contracts by contract_id");
-    program.add_argument("-p").help("1Source API Endpoint to query parties by party_id");
+    setHelpDetails(program);
 
     try
     {
@@ -256,7 +252,7 @@ int main(int argc, char **argv)
     }
 
     // Query the 1Source API endpoint based on the endpoint specified
-    if (auto cfg = program.present("-o"))
+    if (auto cfg = program.present("-g"))
     {
         string endpoint = *cfg;
         Response r;

@@ -33,10 +33,16 @@ private:
     toml::table tbl;
 
     std::optional<std::string> auth_url;
+    std::optional<std::string> realm_name;
+
     std::optional<std::string> events;
     std::optional<std::string> parties;
     std::optional<std::string> agreements;
     std::optional<std::string> contracts;
+    std::optional<std::string> rerates;
+    std::optional<std::string> returns;
+    std::optional<std::string> recalls;
+    std::optional<std::string> buyins;
 
     std::optional<std::string> auth_type;
     std::optional<std::string> grant_type;
@@ -53,10 +59,17 @@ public:
     int readConfiguration();
 
     string getAuthURL();
+    string getRealmName();
+
     string getEventsEndpoint();
     string getPartiesEndpoint();
     string getAgreementsEndpoint();
     string getContractsEndpoint();
+    string getReratesEndPoint();
+    string getReturnsEndPoint();
+    string getRecallsEndPoint();
+    string getBuyinsEndPoint();
+    
     string getAuthType();
     string getGrantType();
     string getClientId();

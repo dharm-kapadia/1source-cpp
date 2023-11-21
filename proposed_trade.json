@@ -1,0 +1,97 @@
+{
+  "trade": {
+    "executionVenue": {
+      "type": "ONPLATFORM",
+      "platform": {
+        "gleifLei": "213800BN4DRR1ADYGP92",
+        "legalName": "EquiLend LLC",
+        "venueName": "NGT",
+        "venueRefId": "896927053849"
+      },
+      "venueParties": [
+        {
+          "partyRole": "BORROWER"
+        },
+        {
+          "partyRole": "LENDER"
+        }
+      ]
+    },
+    "instrument": {
+      "ticker": "JPM",
+      "cusip": "46625H100",
+      "isin": "US46625H1005",
+      "sedol": "2190385",
+      "figi": "BBG001S8CRC3",
+      "description": "JPMORGAN CHASE & CO. COM ",
+      "price": {
+        "value": 147.78,
+        "currency": "USD",
+        "unit": "SHARE"
+      }
+    },
+    "rate": {
+      "rebate": {
+        "fixed": {
+          "baseRate": 0.05,
+          "effctiveRate": 0.05,
+          "effectiveDate": "2023-11-15"
+        }
+      }
+    },
+    "quantity": 150000,
+    "billingCurrency": "USD",
+    "dividendRatePct": 0,
+    "tradeDate": "2023-11-15",
+    "termType": "OPEN",
+    "termDate": "2023-11-15",
+    "settlementDate": "2023-11-15",
+    "settlementType": "DVP",
+    "collateral": {
+      "contractPrice": 147.78,
+      "contractValue": 22266000,
+      "collateralValue": 22711320,
+      "currency": "USD",
+      "type": "CASH",
+      "descriptionCd": "NONUSAGENCIES",
+      "margin": 102,
+      "roundingRule": 10,
+      "roundingMode": "ALWAYSUP"
+    },
+    "transactingParties": [
+      {
+        "partyRole": "BORROWER",
+        "party": {
+          "partyId": "TBORR-US",
+          "partyName": "TestBorrower1",
+          "gleifLei": "KTB500SKZSDI75VSFU40"
+        }
+      },
+      {
+        "partyRole": "LENDER",
+        "party": {
+          "partyId": "TLEN-US",
+          "partyName": "TestLender1",
+          "gleifLei": "KTB500SKZSDI75VSFU40"
+        }
+      }
+    ]
+  },
+  "settlement": [
+    {
+      "partyRole": "LENDER",
+      "instruction": {
+        "settlementBic": "EWREUMV1",
+        "localAgentBic": "SUZEEAR1",
+        "localAgentName": "Kautzer, Bergnaum and Gulgowski",
+        "localAgentAcct": "25451996",
+        "localMarketFields": [
+          {
+            "localFieldName": "DTCYUS33",
+            "localFieldValue": "00002"
+          }
+        ]
+      }
+    }
+  ]
+}

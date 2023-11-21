@@ -31,11 +31,16 @@ int Configuration::readConfiguration()
 
     // Get config data out of the TOML file
     this->auth_url = tbl["general"]["auth_url"].value<string>();
+    this->realm_name = tbl["general"]["realm_name"].value<string>();
 
     this->events = tbl["endpoints"]["events"].value<string>();
     this->parties = tbl["endpoints"]["parties"].value<string>();
     this->agreements = tbl["endpoints"]["agreements"].value<string>();
     this->contracts = tbl["endpoints"]["contracts"].value<string>();
+    this->rerates = tbl["endpoints"]["rerates"].value<string>();
+    this->returns = tbl["endpoints"]["returns"].value<string>();
+    this->recalls = tbl["endpoints"]["recalls"].value<string>();
+    this->buyins = tbl["endpoints"]["buyins"].value<string>();
 
     this->auth_type = tbl["authentication"]["auth_type"].value<string>();
     this->grant_type = tbl["authentication"]["grant_type"].value<string>();
@@ -50,6 +55,10 @@ int Configuration::readConfiguration()
 string Configuration::getAuthURL()
 {
     return *this->auth_url;
+}
+
+string Configuration::getRealmName() {
+    return *this->realm_name;
 }
 
 string Configuration::getEventsEndpoint()
@@ -70,6 +79,26 @@ string Configuration::getAgreementsEndpoint()
 string Configuration::getContractsEndpoint()
 {
     return *this->contracts;
+}
+
+string Configuration::getReratesEndPoint()
+{
+    return *this->rerates;
+}
+
+string Configuration::getReturnsEndPoint()
+{
+    return *this->returns;
+}
+
+string Configuration::getRecallsEndPoint()
+{
+    return *this->recalls;
+}
+
+string Configuration::getBuyinsEndPoint()
+{
+    return *this->buyins;
 }
 
 string Configuration::getAuthType()
