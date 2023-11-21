@@ -31,12 +31,13 @@ namespace utilities
     // Set the command line parameter help text
     void setHelpDetails(argparse::ArgumentParser &program) {
         program.add_argument("-t").required().help("1Source configuration TOML file");
-        program.add_argument("-g").help("1Source API Endpoint to get [agreements, contracts, events, parties, rerates, returns, recalls, buyins]");
+        program.add_argument("-g").help("1Source API Endpoint to get [agreements, contracts, events, parties, rerates, returns, recalls, buyins, delegations]");
         program.add_argument("-a").help("1Source API Endpoint to get trade agreements by agreement_id");
         program.add_argument("-e").help("1Source API Endpoint to get events by event_id");
         program.add_argument("-c").help("1Source API Endpoint to get contracts by contract_id");
         program.add_argument("-ch").help("1Source API Endpoint to get contract history by contract_id");
         program.add_argument("-p").help("1Source API Endpoint to get parties by party_id");
+        program.add_argument("-d").help("1Source API Endpoint to get delegations by delegation_id");
 
         program.add_argument("-cp").help("1Source API Endpoint to PROPOSE a contract from a JSON file");
         program.add_argument("-cc").help("1Source API Endpoint to CANCEL a proposed contract by contract_id");

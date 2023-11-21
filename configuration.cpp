@@ -1,10 +1,12 @@
+#include <utility>
+
 #include "include/configuration.hpp"
 
 using namespace std;
 
 Configuration::Configuration(string filename)
 {
-    this->filename = filename;
+    this->filename = std::move(filename);
 }
 
 /**
@@ -41,6 +43,7 @@ int Configuration::readConfiguration()
     this->returns = tbl["endpoints"]["returns"].value<string>();
     this->recalls = tbl["endpoints"]["recalls"].value<string>();
     this->buyins = tbl["endpoints"]["buyins"].value<string>();
+    this->delegations = tbl["endpoints"]["delegations"].value<string>();
 
     this->auth_type = tbl["authentication"]["auth_type"].value<string>();
     this->grant_type = tbl["authentication"]["grant_type"].value<string>();

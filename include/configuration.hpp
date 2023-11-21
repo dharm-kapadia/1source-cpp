@@ -43,6 +43,7 @@ private:
     std::optional<std::string> returns;
     std::optional<std::string> recalls;
     std::optional<std::string> buyins;
+    std::optional<std::string> delegations;
 
     std::optional<std::string> auth_type;
     std::optional<std::string> grant_type;
@@ -69,7 +70,8 @@ public:
     string getReturnsEndPoint();
     string getRecallsEndPoint();
     string getBuyinsEndPoint();
-    
+    string getDelegationsEndPoint();
+
     string getAuthType();
     string getGrantType();
     string getClientId();

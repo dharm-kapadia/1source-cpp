@@ -12,6 +12,7 @@ rerates = 'https://stageapi.equilend.com/v1/ledger/rerates'
 returns = 'https://stageapi.equilend.com/v1/ledger/returns'
 recalls = 'https://stageapi.equilend.com/v1/ledger/recalls'
 buyins = 'https://stageapi.equilend.com/v1/ledger/buyins'
+delegations = 'https://stageapi.equilend.com/v1/ledger/delegations'
 
 [authentication]
 auth_type = 'BEARER'

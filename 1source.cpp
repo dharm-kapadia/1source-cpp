@@ -227,28 +227,32 @@ int main(int argc, char **argv)
     if (auto cfg = program.present("-g"))
     {
         string endpoint = *cfg;
-        Response r;
+        Response resp;
 
         if (endpoint == "agreements")
         {
             // Get Trade Agreements
-            r = Get(Url{config.getAgreementsEndpoint()}, Bearer{auth_token});
+            resp = Get(Url{config.getAgreementsEndpoint()}, Bearer{auth_token});
         }
         else if (endpoint == "contracts")
         {
             // Get Contracts
-            r = Get(Url{config.getContractsEndpoint()}, Bearer{auth_token});
+            resp = Get(Url{config.getContractsEndpoint()}, Bearer{auth_token});
         }
         else if (endpoint == "events")
         {
             // Get Events
-            r = Get(Url{config.getEventsEndpoint()}, Bearer{auth_token});
+            resp = Get(Url{config.getEventsEndpoint()}, Bearer{auth_token});
         }
         else if (endpoint == "parties")
         {
             // Get Parties
-
-            r = Get(Url{config.getPartiesEndpoint()}, Bearer{auth_token});
+            resp = Get(Url{config.getPartiesEndpoint()}, Bearer{auth_token});
+        }
+        else if (endpoint == "delegations")
+        {
+            // Get Delegations
+            resp = Get(Url{config.getDelegationsEndPoint()}, Bearer{auth_token});
         }
         else
         {
@@ -257,18 +261,16 @@ int main(int argc, char **argv)
             cerr << "Unknown 1Source API endpoint requested: " + endpoint << endl;
         }
 
-        if (r.status_code == 200)
+        if (resp.status_code == 200)
         {
             logger.INFO(endpoint + " data received");
-
-            json resp = json::parse(r.text);
-            outputResponse(resp, endpoint);
+            outputResponse(json::parse(resp.text), endpoint);
         }
         else
         {
             // Error returned
-            logger.INFO(endpoint + " error returned: " + r.error.message);
-            cerr << r.error.message << endl;
+            logger.INFO(endpoint + " error returned: " + resp.error.message);
+            cerr << resp.error.message << endl;
         }
     }
 
