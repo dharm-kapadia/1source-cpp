@@ -104,6 +104,11 @@ string Configuration::getBuyinsEndPoint()
     return *this->buyins;
 }
 
+string Configuration::getDelegationsEndPoint()
+{
+    return *this->delegations;
+}
+
 string Configuration::getAuthType()
 {
     return *this->auth_type;
